@@ -9,8 +9,8 @@ export function ProcessingStatus({ analysisId, analysisStatus, progress }: { ana
         <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-700">
           Analisis berjalan
         </div>
-        <p className="font-display text-2xl font-semibold tracking-tight text-slate-900">Sedang memproses video</p>
-        <p className="text-sm leading-6 text-slate-600">Kami sedang mengekstrak frame dan menjalankan model.</p>
+        <p className="font-display text-2xl font-semibold tracking-tight text-slate-900">Sedang memproses foto</p>
+        <p className="text-sm leading-6 text-slate-600">Kami sedang menjalankan model deteksi kemacetan pada gambar.</p>
         {analysisId ? <p className="font-mono text-xs text-slate-500">ID analisis: {analysisId}</p> : null}
       </div>
 

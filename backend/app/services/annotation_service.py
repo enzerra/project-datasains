@@ -118,3 +118,35 @@ def generate_annotated_video(frame_paths: Iterable[Path], frame_results: list[di
 
     logger.info("Annotated video written: %s", output_path)
     return output_path
+
+
+def generate_annotated_image(image_path: Path, detections: list[dict], output_path: Path) -> Path:
+    """Render bounding boxes onto a single image and write it to disk."""
+    img = cv2.imread(str(image_path))
+    if img is None:
+      raise ValueError("Unable to read image for annotation")
+
+    h, w = img.shape[:2]
+    colors = {}
+
+    for det in detections:
+        bbox = _parse_bbox(det, w, h)
+        if not bbox:
+            continue
+
+        x1, y1, x2, y2 = bbox
+        cls = str(det.get("class") or det.get("label") or "obj").lower()
+        if cls not in colors:
+            colors[cls] = tuple(int(x) for x in (hash(cls) & 0xFF, (hash(cls) >> 8) & 0xFF, (hash(cls) >> 16) & 0xFF))
+        color = colors[cls]
+
+        cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
+        label = _label_for(det)
+        cv2.putText(img, label, (x1 + 2, max(y1 + 12, y1 + 14)), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1, cv2.LINE_AA)
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    if not cv2.imwrite(str(output_path), img):
+        raise ValueError("Unable to write annotated image")
+
+    logger.info("Annotated image written: %s", output_path)
+    return output_path

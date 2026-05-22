@@ -10,7 +10,7 @@ function TimelineTooltip({ active, payload }: { active?: boolean; payload?: Arra
 
   return (
     <div className="rounded-md border border-slate-200 bg-white px-4 py-3 text-slate-900 shadow-sm">
-      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Frame {frame.frame_index}</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Foto {frame.frame_index + 1}</p>
       <p className="mt-2 text-sm text-slate-600">Waktu: {frame.timestamp_seconds.toFixed(1)}s</p>
       <p className="mt-1 text-sm text-slate-600">Kendaraan: {frame.vehicle_count}</p>
       <p className="mt-1 text-sm text-slate-600">Skor kemacetan: {Math.round(frame.congestion_score * 100)}%</p>

@@ -11,7 +11,7 @@ export function Header() {
           </span>
           <span className="leading-tight">
             <span className="block font-display text-base font-semibold tracking-tight text-slate-900">Prediktor Lalu Lintas</span>
-            <span className="block text-xs text-slate-500">Video ke analisis kemacetan</span>
+            <span className="block text-xs text-slate-500">Foto ke analisis kemacetan</span>
           </span>
         </Link>
         <nav className="flex items-center gap-3 text-sm">

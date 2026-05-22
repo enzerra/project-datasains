@@ -5,7 +5,7 @@ import type { AnalysisResult } from '@/types/analysis'
 const items = [
   { label: 'Kendaraan terdeteksi', key: 'total_vehicles_detected', suffix: '' },
   { label: 'Kecepatan rata-rata', key: 'average_speed_kmh', suffix: ' km/jam' },
-  { label: 'Frame dianalisis', key: 'frames_analyzed', suffix: '' },
+  { label: 'Foto dianalisis', key: 'frames_analyzed', suffix: '' },
   { label: 'Skor kemacetan', key: 'congestion_score', suffix: '' },
 ] as const
 
@@ -41,7 +41,7 @@ export function MetricsPanel({ result }: { result: AnalysisResult }) {
             <div className="mt-3 flex items-end justify-between gap-4">
               <div>
                 <p className="font-display text-5xl font-semibold leading-none">{Math.round(result.congestion_score * 100)}</p>
-                <p className="mt-2 text-sm text-slate-600">Tingkat keparahan dari frame yang diambil</p>
+                <p className="mt-2 text-sm text-slate-600">Tingkat keparahan dari foto yang diunggah</p>
               </div>
               <div className="w-36 rounded-full bg-slate-200 p-1">
                 <div className="h-2 rounded-full bg-slate-900" style={{ width: `${Math.min(100, Math.max(0, result.congestion_score * 100))}%` }} />

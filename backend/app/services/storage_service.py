@@ -9,5 +9,5 @@ class StorageService:
         self.upload_dir.mkdir(parents=True, exist_ok=True)
 
     def build_upload_path(self, upload_id: str, filename: str) -> Path:
-        suffix = Path(filename).suffix.lower() or ".mp4"
+        suffix = Path(filename).suffix.lower() or ".jpg"
         return self.upload_dir / f"{upload_id}{suffix}"

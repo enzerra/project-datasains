@@ -33,14 +33,14 @@ export default function HomePage() {
       <PageWrapper>
         <section className="mx-auto max-w-2xl space-y-8 py-12 sm:py-16">
           <div className="space-y-4 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Analisis video lalu lintas</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Analisis foto lalu lintas</p>
             <h1 className="font-display text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
-              Unggah video lalu lintas.
+              Unggah foto lalu lintas.
               <br />
               Dapatkan hasil kemacetan.
             </h1>
             <p className="mx-auto max-w-xl text-base leading-7 text-slate-600">
-              Sederhana, cepat, dan mudah dipahami. Pilih video lalu jalankan analisis.
+              Sederhana, cepat, dan mudah dipahami. Pilih foto lalu jalankan analisis.
             </p>
           </div>
 
@@ -50,7 +50,7 @@ export default function HomePage() {
               {selectedFile ? <VideoPreview file={selectedFile} /> : null}
               {status === 'uploading' ? <UploadProgress progress={progress} /> : null}
               <Button onClick={handleAnalyze} disabled={!uploadAndAnalyzeSchema.safeParse({ file: selectedFile }).success || status === 'uploading'} className="w-full gap-2 py-3.5">
-                {status === 'uploading' ? 'Sedang menganalisis...' : 'Analisis video'}
+                {status === 'uploading' ? 'Sedang menganalisis...' : 'Analisis foto'}
                 <ArrowRight className="h-4 w-4" />
               </Button>
               <p className="text-center text-sm text-slate-500">Setelah mulai, Anda akan diarahkan ke halaman hasil.</p>

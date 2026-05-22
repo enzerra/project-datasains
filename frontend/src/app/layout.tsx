@@ -11,7 +11,7 @@ const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
 export const metadata: Metadata = {
   title: 'Prediktor Kemacetan Lalu Lintas',
-  description: 'Unggah video lalu lintas dan analisis kemacetan dengan computer vision.',
+  description: 'Unggah foto lalu lintas dan analisis kemacetan dengan computer vision.',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

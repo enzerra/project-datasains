@@ -29,3 +29,14 @@ export interface AnalysisResult {
 }
 
 export type AnalysisStatus = 'idle' | 'processing' | 'completed' | 'failed'
+
+export interface AnalysisStatusResponse {
+  analysis_id: string
+  upload_id: string
+  status: AnalysisStatus | 'processing' | 'completed' | 'failed'
+  estimated_seconds?: number | null
+  progress?: { current_step?: string; steps_completed?: number; steps_total?: number; message?: string } | null
+  result?: AnalysisResult | null
+  annotated_video_url?: string | null
+  annotated_image_url?: string | null
+}

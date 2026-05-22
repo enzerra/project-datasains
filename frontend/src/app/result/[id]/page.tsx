@@ -22,8 +22,8 @@ export default function ResultPage() {
   const params = useParams<{ id: string }>()
   const router = useRouter()
   const { addHistoryItem } = useLocalHistory()
-  const label = 'Analisis video lalu lintas'
-  const { result, status, progress, annotatedVideoUrl } = useAnalysis(params.id)
+  const label = 'Analisis foto lalu lintas'
+  const { result, status, progress, annotatedImageUrl } = useAnalysis(params.id)
   const historySaved = useRef(false)
 
   const levelLabel = (level?: string) => {
@@ -83,20 +83,40 @@ export default function ResultPage() {
                 </div>
               </Card>
 
+              <Card className="border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="max-w-3xl space-y-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Hasil prediksi</p>
+                    <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900">Kemacetan {levelLabel(result.congestion_level)}</h2>
+                    <p className="text-sm leading-6 text-slate-600">Model mendeteksi {result.total_vehicles_detected} kendaraan dari {result.frames_analyzed} foto dan menghasilkan skor kemacetan {Math.round(result.congestion_score * 100)}%.</p>
+                  </div>
+                  <div className="grid min-w-[220px] gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                    <div className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Skor</p>
+                      <p className="mt-2 font-display text-3xl font-semibold tracking-tight text-slate-900">{Math.round(result.congestion_score * 100)}%</p>
+                    </div>
+                    <div className="rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500">Kendaraan</p>
+                      <p className="mt-2 font-display text-3xl font-semibold tracking-tight text-slate-900">{result.total_vehicles_detected}</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
               <MetricsPanel result={result} />
 
-              {annotatedVideoUrl && (
+              {annotatedImageUrl && (
                 <Card className="border border-slate-200 bg-white p-4 shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Video beranotasi</p>
-                  <h2 className="font-display text-lg font-semibold tracking-tight text-slate-900">Video hasil deteksi</h2>
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Foto beranotasi</p>
+                  <h2 className="font-display text-lg font-semibold tracking-tight text-slate-900">Hasil prediksi Roboflow</h2>
                   <div className="mt-3">
-                    <video controls src={annotatedVideoUrl} className="w-full max-h-[480px] bg-black" />
+                    <img src={annotatedImageUrl} alt="Hasil prediksi Roboflow" className="w-full rounded-md border border-slate-200 bg-white object-contain" />
                   </div>
                   <div className="mt-3 flex gap-2">
-                    <a href={annotatedVideoUrl} download>
+                    <a href={annotatedImageUrl} download>
                       <Button className="gap-2">
                         <DownloadCloud className="h-4 w-4" />
-                        Unduh video beranotasi
+                        Unduh foto beranotasi
                       </Button>
                     </a>
                   </div>
@@ -106,17 +126,17 @@ export default function ResultPage() {
               <Card className="border border-slate-200 bg-white p-5 shadow-sm">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Tren waktu</p>
-                    <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900">Garis waktu kemacetan</h2>
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Ringkasan foto</p>
+                    <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900">Kemacetan dari satu foto</h2>
                   </div>
-                  <p className="text-sm text-slate-500">Skor per frame dari hasil Roboflow.</p>
+                  <p className="text-sm text-slate-500">Skor ringkas dari hasil Roboflow.</p>
                 </div>
                 <CongestionMap timeline={result.timeline} />
               </Card>
               <DetectionList result={result} />
               <div className="flex flex-col gap-3 sm:flex-row">
                 <ExportButton result={result} />
-                <Button variant="secondary" onClick={() => router.push('/')}>Analisis video lain</Button>
+                <Button variant="secondary" onClick={() => router.push('/')}>Analisis foto lain</Button>
               </div>
             </div>
           )}

@@ -54,8 +54,8 @@ export default function HistoryPage() {
             {history.length === 0 ? (
               <Card className="border border-dashed border-slate-200 bg-white p-8 text-center shadow-sm">
                 <p className="text-lg font-medium text-slate-900">Belum ada analisis</p>
-                <p className="mt-2 text-sm text-slate-600">Unggah video pertama untuk melihat hasil di sini.</p>
-                <Link className="mt-6 inline-flex rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm" href="/">Unggah video</Link>
+                <p className="mt-2 text-sm text-slate-600">Unggah foto pertama untuk melihat hasil di sini.</p>
+                <Link className="mt-6 inline-flex rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm" href="/">Unggah foto</Link>
               </Card>
             ) : (
               history.map((item) => (

@@ -1,13 +1,13 @@
 'use client'
 
 import { useDropzone } from 'react-dropzone'
-import { CloudUpload, FileVideo2, ShieldCheck, Video, X } from 'lucide-react'
+import { CloudUpload, FileImage, Image as ImageIcon, ShieldCheck, X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
 export function VideoDropzone({ onFileSelected, selectedFile }: { onFileSelected: (file: File | null) => void; selectedFile: File | null }) {
   const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
-    accept: { 'video/*': [] },
+    accept: { 'image/*': [] },
     maxSize: 100 * 1024 * 1024,
     multiple: false,
     onDrop: (acceptedFiles) => onFileSelected(acceptedFiles[0] ?? null),
@@ -31,17 +31,17 @@ export function VideoDropzone({ onFileSelected, selectedFile }: { onFileSelected
           Jalur unggah aman
         </div>
         <div className="rounded-2xl bg-accent-500 p-4 text-white shadow-sm">
-          {selectedFile ? <FileVideo2 className="h-7 w-7" /> : <CloudUpload className="h-7 w-7" />}
+          {selectedFile ? <FileImage className="h-7 w-7" /> : <CloudUpload className="h-7 w-7" />}
         </div>
         <div>
           <p className="font-display text-xl font-semibold tracking-tight text-slate-900">
-            {selectedFile ? selectedFile.name : 'Tarik video di sini'}
+            {selectedFile ? selectedFile.name : 'Tarik foto di sini'}
           </p>
-          <p className="mt-2 text-sm leading-6 text-slate-600">Seret file atau klik untuk memilih video.</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Seret file atau klik untuk memilih foto.</p>
         </div>
         {selectedFile ? (
           <div className="flex flex-wrap items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs text-slate-600">
-            <Video className="h-3.5 w-3.5 text-slate-700" />
+            <ImageIcon className="h-3.5 w-3.5 text-slate-700" />
             Siap dianalisis
             <span>·</span>
             {Math.round(selectedFile.size / (1024 * 1024))} MB
@@ -52,7 +52,7 @@ export function VideoDropzone({ onFileSelected, selectedFile }: { onFileSelected
           </div>
         ) : null}
       </div>
-      {hasError ? <p className="mt-4 text-sm font-medium text-danger">Format file tidak didukung atau ukuran terlalu besar.</p> : null}
+      {hasError ? <p className="mt-4 text-sm font-medium text-danger">Format file tidak didukung atau ukuran terlalu besar. Gunakan foto JPG, PNG, atau WEBP.</p> : null}
     </div>
   )
 }

@@ -10,7 +10,7 @@ export function DetectionList({ result }: { result: AnalysisResult }) {
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Komposisi objek</p>
           <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900">Rincian deteksi</h2>
         </div>
-        <p className="text-sm text-slate-500">Jumlah dari frame yang dipilih.</p>
+        <p className="text-sm text-slate-500">Jumlah dari foto yang dianalisis.</p>
       </div>
       <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         {items.map(([label, value]) => (

@@ -2,8 +2,6 @@ from pathlib import Path
 
 from fastapi import UploadFile
 
-from app.config import settings
-
 
 async def save_upload_file(upload_file: UploadFile, destination: Path) -> int:
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -18,5 +16,5 @@ async def save_upload_file(upload_file: UploadFile, destination: Path) -> int:
 
 def validate_extension(filename: str) -> None:
     extension = Path(filename).suffix.lower().lstrip(".")
-    if extension not in settings.allowed_extensions:
-        raise ValueError("File type not supported")
+    if extension not in {"jpg", "jpeg", "png", "webp", "bmp"}:
+        raise ValueError("Only image files are supported")

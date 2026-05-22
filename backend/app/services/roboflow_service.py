@@ -130,7 +130,7 @@ class RoboflowService:
             average_speed_kmh=max(5.0, 35.0 - average_vehicles),
             frames_analyzed=len(frame_results),
             timeline=timeline,
-            summary=f"{congestion_level.value} congestion detected from {len(frame_results)} frames.",
+            summary=f"{congestion_level.value} congestion detected from {len(frame_results)} photo(s).",
             processed_at=datetime.utcnow(),
             processing_duration_ms=0,
         )

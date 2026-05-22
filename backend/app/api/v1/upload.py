@@ -14,14 +14,14 @@ storage_service = StorageService()
 
 
 @router.post("/upload", response_model=UploadResponse, status_code=status.HTTP_201_CREATED)
-async def upload_video(file: UploadFile = File(...), label: str | None = Form(default=None), recorded_at: datetime | None = Form(default=None)) -> UploadResponse:
+async def upload_photo(file: UploadFile = File(...), label: str | None = Form(default=None), recorded_at: datetime | None = Form(default=None)) -> UploadResponse:
     upload_id = str(uuid4())
     try:
         validate_extension(file.filename or "")
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
-    destination = storage_service.build_upload_path(upload_id, file.filename or "upload.mp4")
+    destination = storage_service.build_upload_path(upload_id, file.filename or "upload.jpg")
     size_bytes = await save_upload_file(file, destination)
     max_size = settings.max_video_size_mb * 1024 * 1024
     if size_bytes > max_size:
@@ -31,7 +31,7 @@ async def upload_video(file: UploadFile = File(...), label: str | None = Form(de
     register_upload(
         UploadRecord(
             upload_id=upload_id,
-            original_filename=file.filename or "upload.mp4",
+            original_filename=file.filename or "upload.jpg",
             stored_filename=destination.name,
             stored_path=destination,
             size_bytes=size_bytes,
@@ -44,7 +44,7 @@ async def upload_video(file: UploadFile = File(...), label: str | None = Form(de
         upload_id=upload_id,
         filename=destination.name,
         size_bytes=size_bytes,
-        duration_seconds=45.2,
+        duration_seconds=0.0,
         status="uploaded",
         created_at=datetime.utcnow(),
     )

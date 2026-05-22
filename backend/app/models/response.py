@@ -56,6 +56,7 @@ class AnalysisStatusResponse(BaseModel):
     progress: dict | None = None
     result: AnalysisResult | None = None
     annotated_video_url: str | None = None
+    annotated_image_url: str | None = None
 
 
 class HistoryItem(BaseModel):
