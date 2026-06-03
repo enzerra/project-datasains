@@ -55,11 +55,6 @@ def roboflow_to_analysis_result(
     score_percent = round(score * 100)
 
 
-    motorcycle_count = 0
-    truck_count = 0
-    car_count = 0
-
-
     def find_predictions(data: Any) -> list[Any]:
         if isinstance(data, list):
             if len(data) > 0 and isinstance(data[0], dict) and "class" in data[0]:
@@ -74,28 +69,20 @@ def roboflow_to_analysis_result(
 
     predictions_list = find_predictions(workflow_result)
 
+    breakdown = {}
     for pred in predictions_list:
         if isinstance(pred, dict):
-            vehicle_class = str(pred.get("class", "")).lower()
-            
-            if "motorcycle" in vehicle_class or "motor" in vehicle_class:
-                motorcycle_count += 1
-            elif "truck" in vehicle_class or "truk" in vehicle_class:
-                truck_count += 1
-            elif "car" in vehicle_class or "mobil" in vehicle_class:
-                car_count += 1
+            vehicle_class = str(pred.get("class", "Vehicle")).capitalize()
+            breakdown[vehicle_class] = breakdown.get(vehicle_class, 0) + 1
+
+    if not breakdown and total_vehicles > 0:
+        breakdown["Vehicle"] = total_vehicles
 
     return {
         "congestion_level": level,
         "congestion_score": score,
         "total_vehicles_detected": total_vehicles,
-
-        "vehicle_breakdown": {
-            "car": car_count,
-            "motorcycle": motorcycle_count,
-            "truck": truck_count,
-            "proximate_pairs": proximate_pairs,
-        },
+        "vehicle_breakdown": breakdown,
         "average_speed_kmh": None,
         "frames_analyzed": 1,
         "timeline": [
