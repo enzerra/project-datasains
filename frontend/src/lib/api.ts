@@ -13,8 +13,14 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message = error.response?.data?.detail || 'Something went wrong'
-    return Promise.reject(new Error(message))
+    const detail = error.response?.data?.detail
+    const message =
+      typeof detail === 'string'
+        ? detail
+        : Array.isArray(detail)
+          ? detail.map((item: { msg?: string }) => item.msg).filter(Boolean).join(', ')
+          : 'Terjadi kesalahan pada server'
+    return Promise.reject(new Error(message || 'Terjadi kesalahan pada server'))
   },
 )
 

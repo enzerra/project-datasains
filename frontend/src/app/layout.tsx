@@ -10,7 +10,7 @@ const body = Inter({ subsets: ['latin'], variable: '--font-body', weight: ['300'
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
 export const metadata: Metadata = {
-  title: 'Prediktor Kemacetan Lalu Lintas',
+  title: 'Deteksi Kemacetan Lalu Lintas',
   description: 'Unggah foto lalu lintas dan analisis kemacetan dengan computer vision.',
 }
 

@@ -1,36 +1,42 @@
-import logging
-import time
+from pathlib import Path
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
-from app.api.v1.router import api_router
+from app.api.v1 import router as v1_router
 from app.config import settings
-from app.middleware.cors import configure_cors
-from app.middleware.logging import configure_logging
+
+app = FastAPI(title="Traffic Congestion API")
+
+static_dir = Path("static")
+annotated_dir = static_dir / "annotated_images"
+annotated_dir.mkdir(parents=True, exist_ok=True)
+upload_dir = Path(settings.UPLOAD_DIR or "./tmp/uploads")
+upload_dir.mkdir(parents=True, exist_ok=True)
+
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
+allowed_origins = ["http://localhost:3000", "http://127.0.0.1:3000"]
+if settings.ALLOWED_ORIGINS:
+    allowed_origins = [origin.strip() for origin in settings.ALLOWED_ORIGINS.split(",") if origin.strip()]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(v1_router)
 
 
-def create_app() -> FastAPI:
-    configure_logging()
-    app = FastAPI(title=settings.app_name, version="1.0.0")
-    configure_cors(app)
-
-    @app.middleware("http")
-    async def log_requests(request: Request, call_next):
-        logger = logging.getLogger("app.request")
-        start_time = time.perf_counter()
-        response = await call_next(request)
-        duration_ms = (time.perf_counter() - start_time) * 1000
-        logger.info(
-            "%s %s -> %s (%.2fms)",
-            request.method,
-            request.url.path,
-            response.status_code,
-            duration_ms,
-        )
-        return response
-
-    app.include_router(api_router, prefix="/api/v1")
-    return app
+@app.get("/")
+def root():
+    return {"status": "ok", "message": "Traffic Congestion API", "docs": "/docs"}
 
 
-app = create_app()
+@app.get("/health")
+def health():
+    return {"status": "healthy"}

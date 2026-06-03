@@ -5,7 +5,7 @@ export interface VehicleBreakdown {
   motorcycle: number
   truck: number
   bus: number
-  pedestrian: number
+  proximate_pairs: number
 }
 
 export interface FrameTimeline {

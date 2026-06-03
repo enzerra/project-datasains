@@ -4,7 +4,6 @@ import type { AnalysisResult } from '@/types/analysis'
 
 const items = [
   { label: 'Kendaraan terdeteksi', key: 'total_vehicles_detected', suffix: '' },
-  { label: 'Kecepatan rata-rata', key: 'average_speed_kmh', suffix: ' km/jam' },
   { label: 'Foto dianalisis', key: 'frames_analyzed', suffix: '' },
   { label: 'Skor kemacetan', key: 'congestion_score', suffix: '' },
 ] as const
