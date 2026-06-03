@@ -60,16 +60,19 @@ def roboflow_to_analysis_result(
     car_count = 0
 
 
-    predictions_data = workflow_result.get("predictions", {})
-    predictions_list = []
-    
-    if isinstance(predictions_data, dict):
-        for val in predictions_data.values():
-            if isinstance(val, list):
-                predictions_list = val
-                break
-    elif isinstance(predictions_data, list):
-        predictions_list = predictions_data
+    def find_predictions(data: Any) -> list[Any]:
+        if isinstance(data, list):
+            if len(data) > 0 and isinstance(data[0], dict) and "class" in data[0]:
+                return data
+        elif isinstance(data, dict):
+            if "predictions" in data and isinstance(data["predictions"], list):
+                return data["predictions"]
+            for val in data.values():
+                res = find_predictions(val)
+                if res: return res
+        return []
+
+    predictions_list = find_predictions(workflow_result)
 
     for pred in predictions_list:
         if isinstance(pred, dict):

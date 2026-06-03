@@ -55,13 +55,15 @@ async def run_roboflow_workflow(image_bytes: bytes) -> dict:
 
             image_url = f"/static/annotated_images/{filename}"
 
-        return {
+        result_dict = dict(main_data)
+        result_dict.update({
             "count_objects": main_data.get("count_objects"),
             "density_score": main_data.get("density_score"),
             "congestion_level": main_data.get("congestion_level"),
             "proximate_pairs": main_data.get("proximate_pairs"),
             "annotated_image_url": image_url 
-        }
+        })
+        return result_dict
 
     except Exception as e:
         raise HTTPException(
