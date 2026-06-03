@@ -10,7 +10,6 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { PageWrapper } from '@/components/layout/PageWrapper'
 import { MetricsPanel } from '@/components/analysis/MetricsPanel'
-import { CongestionMap } from '@/components/analysis/CongestionMap'
 import { DetectionList } from '@/components/analysis/DetectionList'
 import { ExportButton } from '@/components/analysis/ExportButton'
 import { ProcessingStatus } from '@/components/analysis/ProcessingStatus'
@@ -123,16 +122,7 @@ export default function ResultPage() {
                 </Card>
               )}
 
-              <Card className="border border-slate-200 bg-white p-5 shadow-sm">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Ringkasan foto</p>
-                    <h2 className="font-display text-xl font-semibold tracking-tight text-slate-900">Kemacetan dari satu foto</h2>
-                  </div>
-                  <p className="text-sm text-slate-500">Skor ringkas dari hasil Roboflow.</p>
-                </div>
-                <CongestionMap timeline={result.timeline} />
-              </Card>
+
               <DetectionList result={result} />
               <div className="flex flex-col gap-3 sm:flex-row">
                 <ExportButton result={result} />
