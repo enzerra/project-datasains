@@ -88,6 +88,20 @@ export default function ResultPage() {
                 </div>
               </Card>
 
+              {result.congestion_level.toLowerCase() === 'critical' && (
+                <div className="animate-pulse rounded-md border-2 border-red-500 bg-red-50 p-4 shadow-sm">
+                  <div className="flex items-center gap-3">
+                    <div className="relative flex h-4 w-4">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                      <span className="relative inline-flex h-4 w-4 rounded-full bg-red-500"></span>
+                    </div>
+                    <p className="text-sm font-bold text-red-900 uppercase tracking-widest">
+                      PERINGATAN DINI: KONDISI LALU LINTAS KRITIS! SEGERA LAKUKAN TINDAKAN!
+                    </p>
+                  </div>
+                </div>
+              )}
+
               <Card className="border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                   <div className="max-w-3xl space-y-3">
