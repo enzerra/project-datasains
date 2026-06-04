@@ -24,6 +24,7 @@ export interface AnalysisResult {
   frames_analyzed: number
   timeline: FrameTimeline[]
   summary: string
+  recommendation?: string
   processed_at: string
   processing_duration_ms: number
 }

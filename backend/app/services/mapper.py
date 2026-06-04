@@ -43,6 +43,18 @@ def _level_summary(level: str, total_vehicles: int, score_percent: int) -> str:
     )
 
 
+def _generate_recommendation(level: str) -> str:
+    if level == "LOW":
+        return "Lalu lintas terpantau lancar. Anda dapat melanjutkan perjalanan dengan kecepatan normal."
+    elif level == "MEDIUM":
+        return "Lalu lintas cukup padat. Tetap waspada dan jaga jarak aman dengan kendaraan di depan."
+    elif level == "HIGH":
+        return "Terjadi kemacetan. Pertimbangkan untuk mencari rute alternatif jika memungkinkan."
+    elif level == "CRITICAL":
+        return "Kemacetan parah! Sangat disarankan untuk mencari rute alternatif atau menunda perjalanan Anda."
+    return "Lalu lintas sedang. Jaga kecepatan dan jarak aman."
+
+
 def roboflow_to_analysis_result(
     workflow_result: dict[str, Any],
     *,
@@ -94,6 +106,7 @@ def roboflow_to_analysis_result(
             }
         ],
         "summary": _level_summary(level, total_vehicles, score_percent),
+        "recommendation": _generate_recommendation(level),
         "processed_at": datetime.now(timezone.utc).isoformat(),
         "processing_duration_ms": processing_duration_ms,
     }

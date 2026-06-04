@@ -77,6 +77,12 @@ export default function ResultPage() {
                     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Analisis selesai</p>
                     <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight sm:text-4xl">{label}</h1>
                     <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">{result.summary}</p>
+                    {result.recommendation && (
+                      <div className="mt-4 rounded-md bg-blue-50 p-4 border border-blue-100">
+                        <p className="text-sm font-semibold text-blue-900">Rekomendasi Tindakan</p>
+                        <p className="mt-1 text-sm text-blue-800">{result.recommendation}</p>
+                      </div>
+                    )}
                   </div>
                   <Badge variant={congestionVariant}>{levelLabel(result.congestion_level)}</Badge>
                 </div>
